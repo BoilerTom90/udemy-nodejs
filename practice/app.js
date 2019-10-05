@@ -1,13 +1,15 @@
-var Emitter = require('./emitter');
+// Using the nodejs Event Emitter
+var Emitter = require('events');
+var events = require('./config').events;
 
 var emitter = new Emitter();
 
-emitter.on('greet', function () {
+emitter.on(events.GREET, function () {
    console.log("Hello greet 1");
 });
 
-emitter.on('greet', function () {
+emitter.on(events.GREET, function () {
    console.log("Hello greet 2");
 });
 
-emitter.emit('greet');
+emitter.emit(events.GREET);
