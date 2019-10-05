@@ -1,15 +1,16 @@
-// Using the nodejs Event Emitter
-var Emitter = require('events');
-var events = require('./config').events;
+// object.create examle
+// setting up the prototype chain
 
-var emitter = new Emitter();
+var person = {
+   fname: '',
+   lname: '',
+   greet: function () {
+      return this.fname + " " + this.lname;
+   }
+}
 
-emitter.on(events.GREET, function () {
-   console.log("Hello greet 1");
-});
+var john = Object.create(person);
+john.fname = "John";
+john.lname = "Doe";
 
-emitter.on(events.GREET, function () {
-   console.log("Hello greet 2");
-});
-
-emitter.emit(events.GREET);
+console.log(john.greet());
