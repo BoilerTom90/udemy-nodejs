@@ -1,24 +1,13 @@
-var g1 = require('./greet1');
-var g2a = require('./greet2');
-var g2b = require('./greet2').greet;
-var g3 = require('./greet3');
-var g4 = require('./greet4');
-var g5 = required('./greet5');
+var Emitter = require('./emitter');
 
-g1();
+var emitter = new Emitter();
 
-g2a.greet();
-g2b();
-g3.greet();
+emitter.on('greet', function () {
+   console.log("Hello greet 1");
+});
 
-// NOte, if you "require" the same module than once in 
-// your app, whether from this file or from multiple files, 
-// the file is only loaded once, and everyone refers to the 
-// same object.
+emitter.on('greet', function () {
+   console.log("Hello greet 2");
+});
 
-var g4Greeter = new g4();
-g4Greeter.greet();
-
-g5.greet();
-
-
+emitter.emit('greet');
