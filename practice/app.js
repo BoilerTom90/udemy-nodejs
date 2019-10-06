@@ -8,6 +8,7 @@ function Greetr() {
 
 // modify Greetr so that it has all the methods and properties of EventEmitter
 // this must be done before adding to the prototype with other properties/methods.
+// creates a new prototype chain from Greetr to EventEmitter so that Greetr can use EventEmitter directly
 util.inherits(Greetr, EventEmitter);
 
 Greetr.prototype.greet = function (data) {
