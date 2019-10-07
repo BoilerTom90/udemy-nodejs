@@ -27,3 +27,7 @@ two kinds of events in nodejs:
 2. Custom Events (come from the JS core... things that I create myself, the event emitter)
 
 Often tines, the c++ core uses the event emitter.
+
+
+## JS is synchronous -- one thing running at a time
+## nodejs is asynchronuous
