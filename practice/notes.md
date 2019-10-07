@@ -31,3 +31,30 @@ Often tines, the c++ core uses the event emitter.
 
 ## JS is synchronous -- one thing running at a time
 ## nodejs is asynchronuous
+
+## System Events
+libuv - a library to handle low-level events
+libuv - has an event loop, constantinc checking a queue for things that have completed, and when completed it removes from the queue and invokes the callback into V8.
+libuv.org - asynchronous I/O made simple
+
+## Streams and Buffers
+
+## Binary Data, Character Sets & Encodings
+character set - a representation of characters as numbers .. what number is used to represent a character.
+e.g. unicode
+
+character encoding - how many bits we use to represent a number (8, 16)
+e.g. utf-8 (the  most popular)
+
+Historically, JS is not very good at handling binary dat. 
+Because of that, node gives us mechanisms to deal with binary data.
+
+## Buffers in node
+nodejs.org/api
+- buffer
+
+stores binary data
+supports different kinds of encodingss
+   - ascii, utf8...
+
+   
