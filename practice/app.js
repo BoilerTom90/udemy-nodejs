@@ -1,11 +1,18 @@
-function greet(callback) {
-   console.log("hello");
-   var data = {
-      name: 'John Doe'
-   };
-   callback(data);
-}
+var fs = require('fs'); // file system lib
 
-greet(function (data) {
-   console.log("Callback called with data: " + data);
-})
+var greet = fs.readFileSync(__dirname + '/greet.txt', 'utf8');
+console.log(greet);
+
+greet = fs.readFile(__dirname + '/greet.txt', 'utf8',
+   function (err, data) { // error first callbacks -- the error is first in the callback
+      if (err == null) {
+         console.log(data);
+      } else {
+         console.log(err);
+      }
+   })
+console.log("Done!");
+
+//
+// this example demonstrates using the filesystem (fs) library and reading a file in sync and async mode.
+//
