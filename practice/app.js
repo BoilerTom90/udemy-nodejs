@@ -1,51 +1,15 @@
 var fs = require('fs'); // file system lib
+var zlib = require('zlib'); // a compression libarary
 
-var readable = fs.createReadStream(__dirname + '/greet.txt',
-   {
-      encoding: 'utf8',         // to retrun string data instead of binary data
-      highWaterMark: 16 * 1024  // to read smaller chunks at a time
-   });
+var readable = fs.createReadStream(__dirname + '/greet.txt');
 var writeable = fs.createWriteStream(__dirname + '/greetCopy.txt');
-
-readable.on('data', (chunk) => {
-   console.log(chunk);
-   writeable.write(chunk);
-});
-
-return;
-
-// Synchronous file reading...
-greet = fs.readFileSync(__dirname + '/greet.txt', 'utf8');
-console.log("Contents of Greet: " + greet);
+var compressed = fs.createWriteStream(__dirname + '/greet.txt.gz');
 
 
-for (var i = 0; i < 10; i++) {
-   let loop = i;
-   greet = fs.readFile(__dirname + '/greet.txt', 'utf8',
-      function (err, data) { // error first callbacks -- the error is first in the callback
-         if (err == null) {
-            console.log("i/loop: " + i + "/" + loop + " => " + data);
-         } else {
-            console.log(err);
-         }
-      })
-}
-// The above outputs this:
-/*
-      i/loop: 10/0 => Hello World!
-      i/loop: 10/2 => Hello World!
-      i/loop: 10/1 => Hello World!
-      i/loop: 10/3 => Hello World!
-      i/loop: 10/7 => Hello World!
-      i/loop: 10/5 => Hello World!
-      i/loop: 10/4 => Hello World!
-      i/loop: 10/6 => Hello World!
-      i/loop: 10/9 => Hello World!
-      i/loop: 10/8 => Hello World!
-*/
+var gzip = zlib.createGzip();
+// using pipe to stream input data to an output stream
+readable.pipe(writeable);
 
-console.log("Done!");
-
-//
-// this example demonstrates using the filesystem (fs) library and reading a file in sync and async mode.
-//
+// read from the input file, compress each chunk, then pipe each chunk to the 
+// output stream (uses chaining)
+readable.pipe(gzip).pipe(compressed);
