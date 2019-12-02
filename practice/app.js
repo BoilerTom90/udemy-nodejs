@@ -1,15 +1,9 @@
-var fs = require('fs'); // file system lib
-var zlib = require('zlib'); // a compression libarary
+var http = require('http');
 
-var readable = fs.createReadStream(__dirname + '/greet.txt');
-var writeable = fs.createWriteStream(__dirname + '/greetCopy.txt');
-var compressed = fs.createWriteStream(__dirname + '/greet.txt.gz');
+http.createServer(function (req, res) {
 
-
-var gzip = zlib.createGzip();
-// using pipe to stream input data to an output stream
-readable.pipe(writeable);
-
-// read from the input file, compress each chunk, then pipe each chunk to the 
-// output stream (uses chaining)
-readable.pipe(gzip).pipe(compressed);
+   console.log(JSON.stringify(req.headers));
+   // we're here when a request is received
+   res.writeHead(200, { 'Content-Type': 'text/plain' });
+   res.end('Hello World\n');
+}).listen(1337, '127.0.0.1');
